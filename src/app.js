@@ -1,6 +1,21 @@
+// Collection : 
+//
+//    "name": "files",
+//"fields": [
+//  {"name": "filename"      , "type": "string"},
+//  {"name": "URL"           , "type": "string"},
+//  {"name": "extention"     , "type": "string", "facet" : True , "optional": True},
+//  {"name": "server"        , "type": "string", "optional": True},
+//  {"name": "creation_time" , "type": "string", "optional": True},
+//  {"name": "mime_type"     , "type": "string", "facet" : True, "optional": True },
+//  {"name": "owner"         , "type": "string", "facet" : True, "optional": True },
+//  {"name": "group"         , "type": "string", "facet" : True, "optional": True },
+//  {"name": "rights"        , "type": "string", "facet" : True, "optional": True },
+//  {"name": "deleted"       , "type": "bool", "optional": True  },
+
 import jQuery from 'jquery';
 
-window.$ = jQuery; // workaround for https://github.com/parcel-bundler/parcel/issues/333
+window.$ = jQuery; 
 
 import 'popper.js';
 import 'bootstrap';
@@ -22,7 +37,7 @@ import { SearchClient as TypesenseSearchClient } from 'typesense'; // To get the
 import images from '../images/*.*';
 import STOP_WORDS from './utils/stop_words.json';
 
-// Source: https://stackoverflow.com/a/901144/123545
+
 const anchorParams = new Proxy(
   new URLSearchParams(window.location.hash.replace('#', '')),
   {
@@ -42,19 +57,6 @@ let TYPESENSE_SERVER_CONFIG = {
   numRetries: 8,
   useServerSideSearchCache: true,
 };
-
-// [2, 3].forEach(i => {
-//   if (process.env[`TYPESENSE_HOST_${i}`]) {
-//     TYPESENSE_SERVER_CONFIG.nodes.push({
-//       host: process.env[`TYPESENSE_HOST_${i}`],
-//       port: process.env.TYPESENSE_PORT,
-//       protocol: process.env.TYPESENSE_PROTOCOL,
-//     });
-//   }
-// });
-
-// Unfortunately, dynamic process.env keys don't work with parcel.js
-// So need to enumerate each key one by one
 
 if (process.env[`TYPESENSE_HOST_2`]) {
   TYPESENSE_SERVER_CONFIG.nodes.push({
@@ -107,7 +109,8 @@ let indexSize;
 })();
 
 function iconForUrlObject(urlObject) {
-  if (
+  return images['spotify_icon']['svg'];
+  /*if (
     urlObject['type'] === 'amazon asin' ||
     urlObject['url'].includes('amazon.com')
   ) {
@@ -137,7 +140,7 @@ function iconForUrlObject(urlObject) {
     return images['archive_icon']['svg'];
   } else {
     return images['generic_song_link_icon']['svg'];
-  }
+  }*/
 }
 
 function queryWithoutStopWords(query) {
@@ -166,6 +169,7 @@ const typesenseInstantsearchAdapter = new TypesenseInstantSearchAdapter({
     sort_by: '_text_match(buckets: 10):desc'
   },
 });
+
 const searchClient = typesenseInstantsearchAdapter.searchClient;
 
 const search = instantsearch({
@@ -187,7 +191,7 @@ search.addWidgets([
     container: '#searchbox',
     showSubmit: false,
     showReset: false,
-    placeholder: 'Type in a song, artist or album name',
+    placeholder: 'Type in a filename or a part of a filename',
     autofocus: true,
     cssClasses: {
       input: 'form-control',
@@ -402,7 +406,7 @@ function handleSearchTermClick(event) {
 }
 
 search.on('render', function() {
-  // Make artist names clickable
+  // Make file names clickable
   $('#hits .clickable-search-term').on('click', handleSearchTermClick);
 });
 
