@@ -33,7 +33,9 @@
             <h5 class="text-md-center mt-3 font-weight-light">
               <div class="d-md-inline d-block mt-3">
                 <span style="vertical-align: text-bottom;">powered by </span>
-                <img src="./images/Logo_Compact_C.png" height="52" alt="SearchIT" class="mx-2" style="vertical-align: top; position: relative; top: -4px;"/>
+                <a href="#" aria-roledescription="button" data-toggle="modal" data-target="#aboutModal">
+                  <img src="./images/Logo_Compact_C.png" height="52" alt="SearchIT" class="mx-2" style="vertical-align: top; position: relative; top: -4px;"/>
+                </a>
               </div>
             </h5>
             <div class="text-md-center">
@@ -55,7 +57,8 @@
             Try:
             <span id="example-search-terms">
               <a role="button" class="clickable-search-term">Expenses.xls</a>
-              <a role="button" class="clickable-search-term">.doc</a>
+              <a role="button" class="clickable-search-term">.docx</a>
+              <a role="button" class="clickable-search-term">voorbeeld</a>
 
             </span>
           </div>
@@ -93,34 +96,35 @@
             </div>
           </div>
 
-          <div class="row">
+          <div class="row mb-2">
             <div class="col-md">
-              <h4 class="font-weight-light text-primary">Release Date</h4>
-              <div id="release-date-selector"></div>
+              <h4 class="font-weight-light text-primary">Extention</h4>
+              <div id="extention-refinement-list"></div>
             </div>
           </div>
-          <div class="row mt-3">
+
+          <div class="row mb-2">
             <div class="col-md">
-              <h4 class="font-weight-light text-primary">Artists</h4>
-              <div id="artists-refinement-list"></div>
+              <h4 class="font-weight-light text-primary">Server</h4>
+              <div id="server-refinement-list"></div>
             </div>
           </div>
-          <div class="row mt-5">
+          <div class="row mt-2">
             <div class="col-md">
-              <h4 class="font-weight-light text-primary">Genres</h4>
-              <div id="genres-refinement-list"></div>
+              <h4 class="font-weight-light text-primary">Document Type</h4>
+              <div id="mime-refinement-list"></div>
             </div>
           </div>
-          <div class="row mt-5">
+          <div class="row mt-2">
             <div class="col-md">
-              <h4 class="font-weight-light text-primary">Release Type</h4>
-              <div id="release-type-refinement-list"></div>
+              <h4 class="font-weight-light text-primary">Ownership</h4>
+              <div id="owner-refinement-list"></div>
             </div>
           </div>
-          <div class="row mt-5">
+          <div class="row mt-2">
             <div class="col-md">
-              <h4 class="font-weight-light text-primary">Countries</h4>
-              <div id="countries-refinement-list"></div>
+              <h4 class="font-weight-light text-primary">Group Ownership</h4>
+              <div id="group-refinement-list"></div>
             </div>
           </div>
         </div>

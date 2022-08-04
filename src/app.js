@@ -150,8 +150,8 @@ const typesenseInstantsearchAdapter = new TypesenseInstantSearchAdapter({
   //  So you can pass any parameters supported by the search endpoint below.
   //  queryBy is required.
   additionalSearchParameters: {
-    query_by: 'filename',
-   // query_by_weights: '2,2,1',
+    query_by: 'filename, extention, URL, server,owner, group',
+    query_by_weights: '3,2,1,2,1,1',
     sort_by: '_text_match(buckets: 10):desc'
   },
 });
@@ -232,19 +232,28 @@ search.addWidgets([
               {{#helpers.highlight}}{ "attribute": "filename" }{{/helpers.highlight}}
             </h6>
             <div>
-              by
+              URL : 
               <a role="button" class="clickable-search-term">{{#helpers.highlight}}{ "attribute": "filename" }{{/helpers.highlight}}</a>
             </div>
-            <div class="mt-3">
-              from {{#helpers.highlight}}{ "attribute": "filename" }{{/helpers.highlight}}
+            <div>
+              extention : {{#helpers.highlight}}{ "attribute": "extention" }{{/helpers.highlight}}
             </div>
-            <div class="text-muted small mb-2">
+            <div>
+              creation time : {{#helpers.highlight}}{ "attribute": "creation_time" }{{/helpers.highlight}}
+            </div>
+            <div>
+              MIME type : {{#helpers.highlight}}{ "attribute": "mime_type" }{{/helpers.highlight}}
+            </div>
+            <div>
+              server : {{#helpers.highlight}}{ "attribute": "server" }{{/helpers.highlight}}
+            </div>
+          <div class="text-muted small mb-2">
               {{ filename }}
             </div>
 
             <div class="mt-auto text-right">
               {{#urls}}
-              <a href="{{ filename }}" target="_blank" class="ml-1"><img src="{{ filename }}" alt="{{ filename }}" height="14"></a>
+              <a href="{{ filename }}" target="_blank" class="ml-1"><img src="{{ URL}}" alt="{{ filename }}" height="14"></a>
               {{/urls}}
             </div>
         `,
@@ -254,28 +263,28 @@ search.addWidgets([
       return items.map(item => {
         return {
           ...item,
-          release_date_display: (() => {
-            const parsedDate = new Date(item.release_date * 1000);
+          creation_time_display: (() => {
+            const parsedDate = new Date(item.creation_time * 1000);
             return `${parsedDate.getUTCFullYear()}/${(
               '0' +
               (parsedDate.getUTCMonth() + 1)
             ).slice(-2)}`;
           })(),
-          urls: item.urls.map(urlObj => {
+  /*        urls: item.urls.map(urlObj => {
             return {
               icon: iconForUrlObject(urlObj),
               ...urlObj,
             };
-          }),
+          }),*/
         };
       });
     },
   }),
-  refinementList({
-    container: '#genres-refinement-list',
-    attribute: 'filename',
+ refinementList({
+    container: '#extention-refinement-list',
+    attribute: 'extention',
     searchable: true,
-    searchablePlaceholder: 'Search filename',
+    searchablePlaceholder: 'Search extention',
     showMore: true,
     cssClasses: {
       searchableInput: 'form-control form-control-sm mb-2 border-light-2',
@@ -289,16 +298,16 @@ search.addWidgets([
     },
   }),
   refinementList({
-    container: '#artists-refinement-list',
-    attribute: 'filename',
+    container: '#server-refinement-list',
+    attribute: 'server',
     searchable: true,
-    searchablePlaceholder: 'Search artists',
+    searchablePlaceholder: 'Search by server',
     showMore: true,
     cssClasses: {
       searchableInput: 'form-control form-control-sm mb-2 border-light-2',
       searchableSubmit: 'd-none',
       searchableReset: 'd-none',
-      showMore: 'btn btn-secondary btn-sm',
+      showMore: 'btn btn-secondary btn-sm align-content-center',
       list: 'list-unstyled',
       count: 'badge badge-light bg-light-2 ml-2',
       label: 'd-flex align-items-center',
@@ -306,8 +315,8 @@ search.addWidgets([
     },
   }),
   refinementList({
-    container: '#release-type-refinement-list',
-    attribute: 'filename',
+    container: '#mime-refinement-list',
+    attribute: 'mime_type',
     searchable: true,
     searchablePlaceholder: 'Search release types',
     showMore: true,
@@ -323,10 +332,10 @@ search.addWidgets([
     },
   }),
   refinementList({
-    container: '#countries-refinement-list',
-    attribute: 'filename',
+    container: '#owner-refinement-list',
+    attribute: 'owner',
     searchable: true,
-    searchablePlaceholder: 'Search countries',
+    searchablePlaceholder: 'Search owners',
     showMore: true,
     cssClasses: {
       searchableInput: 'form-control form-control-sm mb-2 border-light-2',
@@ -339,9 +348,26 @@ search.addWidgets([
       checkbox: 'mr-2',
     },
   }),
+  refinementList({
+    container: '#group-refinement-list',
+    attribute: 'group',
+    searchable: true,
+    searchablePlaceholder: 'Search owners',
+    showMore: true,
+    cssClasses: {
+      searchableInput: 'form-control form-control-sm mb-2 border-light-2',
+      searchableSubmit: 'd-none',
+      searchableReset: 'd-none',
+      showMore: 'btn btn-secondary btn-sm',
+      list: 'list-unstyled',
+      count: 'badge badge-light bg-light-2 ml-2',
+      label: 'd-flex align-items-center',
+      checkbox: 'mr-2',
+    },
+  }),  /*
   menu({
-    container: '#release-date-selector',
-    attribute: 'filename',
+    container: '#creation-time-selector',
+    attribute: 'creation-time-',
    // sortBy: ['name:asc'],
     cssClasses: {
       list: 'list-unstyled',
@@ -349,7 +375,7 @@ search.addWidgets([
       count: 'badge badge-light bg-light-2 ml-2',
       selectedItem: 'bg-secondary p-2 pl-3',
     },
-  }),
+  }), */
   configure({
     hitsPerPage: 15,
   }),
@@ -357,7 +383,7 @@ search.addWidgets([
     container: '#sort-by',
     items: [
       { label: 'Recent first', value: `${INDEX_NAME}` },
-      { label: 'Oldest first', value: `${INDEX_NAME}/sort/filename:asc` },
+      { label: 'Oldest first', value: `${INDEX_NAME}/sort/creation_time:asc` },
     ],
     cssClasses: {
       select: 'custom-select custom-select-sm',
