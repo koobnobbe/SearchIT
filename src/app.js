@@ -427,9 +427,9 @@ search.start();
 $(function() {
   const $searchBox = $('#searchbox input[type=search]');
   // Set initial search term
-  // if ($searchBox.val().trim() === '') {
-  //   $searchBox.val('Song');
-  //   search.helper.setQuery($searchBox.val()).search();
+   //if ($searchBox.val().trim() === '') {
+   //  $searchBox.val('file');
+   //  search.helper.setQuery($searchBox.val()).search();
   // }
 
   // Handle example search terms
