@@ -14,6 +14,7 @@ import {
   stats,
   analytics,
   refinementList,
+  rangeSlider,
   menu,
   sortBy,
   currentRefinements,
@@ -172,6 +173,7 @@ const search = instantsearch({
   },
 });
 
+
 search.addWidgets([
   searchBox({
     container: '#searchbox',
@@ -219,6 +221,7 @@ search.addWidgets([
       },
     },
   }),
+
   infiniteHits({
     container: '#hits',
     cssClasses: {
@@ -248,7 +251,8 @@ search.addWidgets([
               server : {{#helpers.highlight}}{ "attribute": "server" }{{/helpers.highlight}}
             </div>
           <div class="text-muted small mb-2">
-              {{ filename }}
+              {{ creation_time_display }}
+          
             </div>
 
             <div class="mt-auto text-right">
@@ -260,15 +264,23 @@ search.addWidgets([
       empty: 'No files found for <q>{{ query }}</q>. Try another search term.',
     },
     transformItems: items => {
+
       return items.map(item => {
+
         return {
           ...item,
+          creation_year: (() => {
+            const parsedDate = new Date(item.creation_time * 1000);
+            return `${parsedDate.toLocaleDateString("nl-NL",{year:"numeric"})}` 
+          })(),
+          creation_month: (() => {
+            const parsedDate = new Date(item.creation_time * 1000);
+            return `${parsedDate.toLocaleDateString("nl-NL",{month:"numeric"})}` 
+          })(),
           creation_time_display: (() => {
             const parsedDate = new Date(item.creation_time * 1000);
-            return `${parsedDate.getUTCFullYear()}/${(
-              '0' +
-              (parsedDate.getUTCMonth() + 1)
-            ).slice(-2)}`;
+            return `${parsedDate.toLocaleDateString("nl-NL") 
+                     + '  ' + parsedDate.toLocaleTimeString("nl-NL")}`
           })(),
   /*        urls: item.urls.map(urlObj => {
             return {
@@ -280,7 +292,8 @@ search.addWidgets([
       });
     },
   }),
- refinementList({
+
+  refinementList({
     container: '#extention-refinement-list',
     attribute: 'extention',
     searchable: true,
@@ -297,6 +310,7 @@ search.addWidgets([
       checkbox: 'mr-2',
     },
   }),
+
   refinementList({
     container: '#server-refinement-list',
     attribute: 'server',
@@ -314,6 +328,7 @@ search.addWidgets([
       checkbox: 'mr-2',
     },
   }),
+
   refinementList({
     container: '#mime-refinement-list',
     attribute: 'mime_type',
@@ -331,6 +346,7 @@ search.addWidgets([
       checkbox: 'mr-2',
     },
   }),
+
   refinementList({
     container: '#owner-refinement-list',
     attribute: 'owner',
@@ -348,6 +364,7 @@ search.addWidgets([
       checkbox: 'mr-2',
     },
   }),
+
   refinementList({
     container: '#group-refinement-list',
     attribute: 'group',
@@ -364,21 +381,12 @@ search.addWidgets([
       label: 'd-flex align-items-center',
       checkbox: 'mr-2',
     },
-  }),  /*
-  menu({
-    container: '#creation-time-selector',
-    attribute: 'creation-time-',
-   // sortBy: ['name:asc'],
-    cssClasses: {
-      list: 'list-unstyled',
-      item: 'pl-2 mb-2 text-normal',
-      count: 'badge badge-light bg-light-2 ml-2',
-      selectedItem: 'bg-secondary p-2 pl-3',
-    },
-  }), */
+  }),  
+
   configure({
     hitsPerPage: 15,
   }),
+
   sortBy({
     container: '#sort-by',
     items: [
@@ -389,6 +397,7 @@ search.addWidgets([
       select: 'custom-select custom-select-sm',
     },
   }),
+
   currentRefinements({
     container: '#current-refinements',
     cssClasses: {
