@@ -1,17 +1,3 @@
-// Collection : 
-//
-//    "name": "files",
-//"fields": [
-//  {"name": "filename"      , "type": "string"},
-//  {"name": "URL"           , "type": "string"},
-//  {"name": "extention"     , "type": "string", "facet" : True , "optional": True},
-//  {"name": "server"        , "type": "string", "optional": True},
-//  {"name": "creation_time" , "type": "string", "optional": True},
-//  {"name": "mime_type"     , "type": "string", "facet" : True, "optional": True },
-//  {"name": "owner"         , "type": "string", "facet" : True, "optional": True },
-//  {"name": "group"         , "type": "string", "facet" : True, "optional": True },
-//  {"name": "rights"        , "type": "string", "facet" : True, "optional": True },
-//  {"name": "deleted"       , "type": "bool", "optional": True  },
 
 import jQuery from 'jquery';
 
@@ -164,8 +150,8 @@ const typesenseInstantsearchAdapter = new TypesenseInstantSearchAdapter({
   //  So you can pass any parameters supported by the search endpoint below.
   //  queryBy is required.
   additionalSearchParameters: {
-    query_by: 'primary_artist_name,title,album_name',
-    query_by_weights: '2,2,1',
+    query_by: 'filename',
+   // query_by_weights: '2,2,1',
     sort_by: '_text_match(buckets: 10):desc'
   },
 });
@@ -228,7 +214,7 @@ search.addWidgets([
           statsText = `${nbHits.toLocaleString()} results`;
         }
         return `${statsText} found ${
-          indexSize ? ` - Searched ${indexSize.toLocaleString()} songs` : ''
+          indexSize ? ` - Searched ${indexSize.toLocaleString()} files` : ''
         } in ${processingTimeMS}ms.`;
       },
     },
@@ -243,26 +229,26 @@ search.addWidgets([
     templates: {
       item: `
             <h6 class="text-primary font-weight-light font-letter-spacing-loose mb-0">
-              {{#helpers.highlight}}{ "attribute": "title" }{{/helpers.highlight}}
+              {{#helpers.highlight}}{ "attribute": "filename" }{{/helpers.highlight}}
             </h6>
             <div>
               by
-              <a role="button" class="clickable-search-term">{{#helpers.highlight}}{ "attribute": "primary_artist_name" }{{/helpers.highlight}}</a>
+              <a role="button" class="clickable-search-term">{{#helpers.highlight}}{ "attribute": "filename" }{{/helpers.highlight}}</a>
             </div>
             <div class="mt-3">
-              from {{#helpers.highlight}}{ "attribute": "album_name" }{{/helpers.highlight}}
+              from {{#helpers.highlight}}{ "attribute": "filename" }{{/helpers.highlight}}
             </div>
             <div class="text-muted small mb-2">
-              {{ release_date_display }}
+              {{ filename }}
             </div>
 
             <div class="mt-auto text-right">
               {{#urls}}
-              <a href="{{ url }}" target="_blank" class="ml-1"><img src="{{ icon }}" alt="{{ type }}" height="14"></a>
+              <a href="{{ filename }}" target="_blank" class="ml-1"><img src="{{ filename }}" alt="{{ filename }}" height="14"></a>
               {{/urls}}
             </div>
         `,
-      empty: 'No songs found for <q>{{ query }}</q>. Try another search term.',
+      empty: 'No files found for <q>{{ query }}</q>. Try another search term.',
     },
     transformItems: items => {
       return items.map(item => {
@@ -287,9 +273,9 @@ search.addWidgets([
   }),
   refinementList({
     container: '#genres-refinement-list',
-    attribute: 'genres',
+    attribute: 'filename',
     searchable: true,
-    searchablePlaceholder: 'Search genres',
+    searchablePlaceholder: 'Search filename',
     showMore: true,
     cssClasses: {
       searchableInput: 'form-control form-control-sm mb-2 border-light-2',
@@ -304,7 +290,7 @@ search.addWidgets([
   }),
   refinementList({
     container: '#artists-refinement-list',
-    attribute: 'primary_artist_name',
+    attribute: 'filename',
     searchable: true,
     searchablePlaceholder: 'Search artists',
     showMore: true,
@@ -321,7 +307,7 @@ search.addWidgets([
   }),
   refinementList({
     container: '#release-type-refinement-list',
-    attribute: 'release_group_types',
+    attribute: 'filename',
     searchable: true,
     searchablePlaceholder: 'Search release types',
     showMore: true,
@@ -338,7 +324,7 @@ search.addWidgets([
   }),
   refinementList({
     container: '#countries-refinement-list',
-    attribute: 'country',
+    attribute: 'filename',
     searchable: true,
     searchablePlaceholder: 'Search countries',
     showMore: true,
@@ -355,8 +341,8 @@ search.addWidgets([
   }),
   menu({
     container: '#release-date-selector',
-    attribute: 'release_decade',
-    sortBy: ['name:asc'],
+    attribute: 'filename',
+   // sortBy: ['name:asc'],
     cssClasses: {
       list: 'list-unstyled',
       item: 'pl-2 mb-2 text-normal',
@@ -371,7 +357,7 @@ search.addWidgets([
     container: '#sort-by',
     items: [
       { label: 'Recent first', value: `${INDEX_NAME}` },
-      { label: 'Oldest first', value: `${INDEX_NAME}/sort/release_date:asc` },
+      { label: 'Oldest first', value: `${INDEX_NAME}/sort/filename:asc` },
     ],
     cssClasses: {
       select: 'custom-select custom-select-sm',
