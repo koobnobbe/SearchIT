@@ -312,6 +312,60 @@ search.addWidgets([
   }),
 
   refinementList({
+    container: '#year-refinement-list',
+    attribute: 'creation_year',
+    searchable: true,
+    searchablePlaceholder: 'Search creation year',
+    showMore: true,
+    cssClasses: {
+      searchableInput: 'form-control form-control-sm mb-2 border-light-2',
+      searchableSubmit: 'd-none',
+      searchableReset: 'd-none',
+      showMore: 'btn btn-secondary btn-sm align-content-center',
+      list: 'list-unstyled',
+      count: 'badge badge-light bg-light-2 ml-2',
+      label: 'd-flex align-items-center',
+      checkbox: 'mr-2',
+    },
+  }),
+
+  refinementList({
+    container: '#month-refinement-list',
+    attribute: 'creation_month',
+    searchable: true,
+    searchablePlaceholder: 'Search creation month',
+    showMore: true,
+    cssClasses: {
+      searchableInput: 'form-control form-control-sm mb-2 border-light-2',
+      searchableSubmit: 'd-none',
+      searchableReset: 'd-none',
+      showMore: 'btn btn-secondary btn-sm align-content-center',
+      list: 'list-unstyled',
+      count: 'badge badge-light bg-light-2 ml-2',
+      label: 'd-flex align-items-center',
+      checkbox: 'mr-2',
+    },
+  }),
+/*
+  refinementList({
+    container: '#day-refinement-list',
+    attribute: 'creation_day',
+    searchable: true,
+    searchablePlaceholder: 'Search creation day',
+    showMore: true,
+    cssClasses: {
+      searchableInput: 'form-control form-control-sm mb-2 border-light-2',
+      searchableSubmit: 'd-none',
+      searchableReset: 'd-none',
+      showMore: 'btn btn-secondary btn-sm align-content-center',
+      list: 'list-unstyled',
+      count: 'badge badge-light bg-light-2 ml-2',
+      label: 'd-flex align-items-center',
+      checkbox: 'mr-2',
+    },
+  }),
+  */
+  refinementList({
     container: '#server-refinement-list',
     attribute: 'server',
     searchable: true,
