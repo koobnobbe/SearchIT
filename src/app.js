@@ -405,7 +405,7 @@ search.addWidgets([
   }),
 
   
-  refinementList({
+  /* refinementList({
     container: '#folders-refinement-list',
     attribute: 'folders',
     searchable: true,
@@ -421,7 +421,7 @@ search.addWidgets([
       label: 'd-flex align-items-center',
       checkbox: 'mr-2',
     },
-  }),
+  }), */
 
   refinementList({
     container: '#mime-refinement-list',
