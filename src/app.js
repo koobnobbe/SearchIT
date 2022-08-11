@@ -384,6 +384,43 @@ search.addWidgets([
   }),
 
   refinementList({
+    container: '#folder-hierarchiemenu-list',
+    attribute: 'folders',
+    searchable: true,
+    searchablePlaceholder: 'Search by folder',
+    showMore: true,
+    cssClasses: {
+      searchableInput: 'form-control form-control-sm mb-2 border-light-2',
+      searchableSubmit: 'd-none',
+      searchableReset: 'd-none',
+      showMore: 'btn btn-secondary btn-sm align-content-center',
+      list: 'list-unstyled',
+      count: 'badge badge-light bg-light-2 ml-2',
+      label: 'd-flex align-items-center',
+      checkbox: 'mr-2',
+    },
+  }),
+
+  
+  refinementList({
+    container: '#folders-refinement-list',
+    attribute: 'folders',
+    searchable: true,
+    searchablePlaceholder: 'Search by folder',
+    showMore: true,
+    cssClasses: {
+      searchableInput: 'form-control form-control-sm mb-2 border-light-2',
+      searchableSubmit: 'd-none',
+      searchableReset: 'd-none',
+      showMore: 'btn btn-secondary btn-sm align-content-center',
+      list: 'list-unstyled',
+      count: 'badge badge-light bg-light-2 ml-2',
+      label: 'd-flex align-items-center',
+      checkbox: 'mr-2',
+    },
+  }),
+
+  refinementList({
     container: '#mime-refinement-list',
     attribute: 'mime_type',
     searchable: true,
