@@ -18,6 +18,7 @@ import {
   menu,
   sortBy,
   currentRefinements,
+  hierarchicalMenu,
 } from 'instantsearch.js/es/widgets';
 import TypesenseInstantSearchAdapter from 'typesense-instantsearch-adapter';
 import { SearchClient as TypesenseSearchClient } from 'typesense'; // To get the total number of docs
@@ -383,21 +384,23 @@ search.addWidgets([
     },
   }),
 
-  refinementList({
+  hierarchicalMenu({
     container: '#folder-hierarchiemenu-list',
-    attribute: 'folders',
-    searchable: true,
-    searchablePlaceholder: 'Search by folder',
-    showMore: true,
+    attributes: ['folders_lvl1', 
+                 'folders_lvl2',   
+                 'folders_lvl3', 
+                 'folders_lvl4', 
+                 'folders_lvl4', 
+                 'folders_lvl5', 
+                 'folders_lvl6', 
+                 'folders_lvl7',   
+                ],
+    //showMore: true,
+    sortBy: ['name'],
     cssClasses: {
-      searchableInput: 'form-control form-control-sm mb-2 border-light-2',
-      searchableSubmit: 'd-none',
-      searchableReset: 'd-none',
-      showMore: 'btn btn-secondary btn-sm align-content-center',
       list: 'list-unstyled',
       count: 'badge badge-light bg-light-2 ml-2',
       label: 'd-flex align-items-center',
-      checkbox: 'mr-2',
     },
   }),
 
