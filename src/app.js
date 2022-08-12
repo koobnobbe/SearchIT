@@ -243,7 +243,7 @@ search.addWidgets([
               MIME type : {{#helpers.highlight}}{ "attribute": "mime_type" }{{/helpers.highlight}} - {{#helpers.highlight}}{ "attribute": "extention" }{{/helpers.highlight}}
             </div>
             <div>
-              Filesize : {{filesize}}
+              Filesize : {{filesize}} ( {{size_category}} )
             </div>
 
             </div>Creation Time : {{ creation_time_display }}
@@ -347,6 +347,25 @@ search.addWidgets([
       checkbox: 'mr-2',
     },
   }),
+
+  refinementList({
+    container: '#size-refinement-list',
+    attribute: 'size_category',
+    searchable: true,
+    searchablePlaceholder: 'Search creation year',
+    showMore: true,
+    cssClasses: {
+      searchableInput: 'form-control form-control-sm mb-2 border-light-2',
+      searchableSubmit: 'd-none',
+      searchableReset: 'd-none',
+      showMore: 'btn btn-secondary btn-sm align-content-center',
+      list: 'list-unstyled',
+      count: 'badge badge-light bg-light-2 ml-2',
+      label: 'd-flex align-items-center',
+      checkbox: 'mr-2',
+    },
+  }),
+
 /*
   refinementList({
     container: '#day-refinement-list',
