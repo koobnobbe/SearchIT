@@ -240,20 +240,20 @@ search.addWidgets([
               <a role="button" class="clickable-search-term">{{#helpers.highlight}}{ "attribute": "filename" }{{/helpers.highlight}}</a>
             </div>
             <div>
-              extention : {{#helpers.highlight}}{ "attribute": "extention" }{{/helpers.highlight}}
+              MIME type : {{#helpers.highlight}}{ "attribute": "mime_type" }{{/helpers.highlight}} - {{#helpers.highlight}}{ "attribute": "extention" }{{/helpers.highlight}}
             </div>
             <div>
-              creation time : {{#helpers.highlight}}{ "attribute": "creation_time" }{{/helpers.highlight}}
+              Filesize : {{filesize}}
+            </div>
+
+            </div>Creation Time : {{ creation_time_display }}
+            </div
+<BR>
+            <div>
+              Server : {{ server }} 
             </div>
             <div>
-              MIME type : {{#helpers.highlight}}{ "attribute": "mime_type" }{{/helpers.highlight}}
-            </div>
-            <div>
-              server : {{#helpers.highlight}}{ "attribute": "server" }{{/helpers.highlight}}
-            </div>
-          <div class="text-muted small mb-2">
-              {{ creation_time_display }}
-          
+              URL : {{URL}}
             </div>
 
             <div class="mt-auto text-right">
@@ -398,7 +398,7 @@ search.addWidgets([
     //showMore: true,
     sortBy: ['name'],
     cssClasses: {
-      list: 'list-unstyled',
+    //  list: 'list-unstyled',
       count: 'badge badge-light bg-light-2 ml-2',
       label: 'd-flex align-items-center',
     },
