@@ -29,7 +29,7 @@ a.clickable-search-term {
   row-gap: 10px;
 
   @media (min-width: 768px) {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(1, minmax(0, 1fr));
     column-gap: 20px;
     row-gap: 20px;
   }

@@ -243,7 +243,7 @@ search.addWidgets([
               MIME type : {{#helpers.highlight}}{ "attribute": "mime_type" }{{/helpers.highlight}} - {{#helpers.highlight}}{ "attribute": "extention" }{{/helpers.highlight}}
             </div>
             <div>
-              Filesize : {{filesize}} ( {{size_category}} )
+              Filesize : {{filesize_human}}
             </div>
 
             </div>Creation Time : {{ creation_time_display }}
@@ -253,7 +253,7 @@ search.addWidgets([
               Server : {{ server }} 
             </div>
             <div>
-              URL : {{URL}}
+              URL : {{#helpers.highlight}}{ "attribute": "URL" }{{/helpers.highlight}}
             </div>
 
             <div class="mt-auto text-right">
